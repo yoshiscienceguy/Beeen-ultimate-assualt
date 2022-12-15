@@ -21,6 +21,9 @@ public class shooting : MonoBehaviour
     public bool reloading;
     public Animator anim;
     public bool canshoot;
+    public bool splodeyboi;
+    public float explosiveforce = 200;
+    public float exlposionradios = 25;
     
     // Start is called before the first frame update
     void Start()
@@ -38,10 +41,18 @@ public class shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (ctime >= lrfreq)
+        if (GetComponent<turn_left_and_right>().hacksForDevs == true)
         {
-            if (canshoot == true)
+            lrmaxmag = 250;
+        }
+        if (GetComponent<turn_left_and_right>().hacksForDevs == false)
+        {
+            lrmaxmag = 30;
+        }
+    
+        if (ctime>= lrfreq)
+        {
+            if (canshoot== true)
             {
 
 
@@ -58,12 +69,29 @@ public class shooting : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(barrel.position, barrel.TransformDirection(Vector3.forward), out hit, lrrange, lm))
                     {
-                        GameObject victem = hit.collider.gameObject;
-                        if (victem.GetComponent<Rigidbody>())
+                        if(splodeyboi == true)
                         {
-                            StartCoroutine("hit");
-                            victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
+                            Collider[] victems = Physics.OverlapSphere(hit.point, exlposionradios);
+                            foreach (Collider body in victems) 
+                            {
+
+                                Rigidbody rb = body.GetComponent<Rigidbody>();
+                                if(rb != null)
+                                {
+                                    rb.AddExplosionForce(explosiveforce, hit.point, exlposionradios);
+                                }
+                            }
                         }
+                        else
+                        {
+                            GameObject victem = hit.collider.gameObject;
+                            if (victem.GetComponent<Rigidbody>())
+                            {
+                                StartCoroutine("hit");
+                                victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
+                            }
+                        }
+                        
 
                     }
                     StartCoroutine("lrMf");
@@ -73,8 +101,6 @@ public class shooting : MonoBehaviour
                     }
                     ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
                     lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
-                    Debug.Log((lrcurrentmag / lrmaxmag));
-                    Debug.Log((lrcurrentmag / lrmaxmag) * 10.0f);
                     ctime = 0;
                 }
            

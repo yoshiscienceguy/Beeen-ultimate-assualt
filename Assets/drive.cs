@@ -49,7 +49,7 @@ public class drive : MonoBehaviour
 
             Vector3 movment = new Vector3(h*flyspeed, w*(flyspeed/2), v*flyspeed);
 
-            transform.Translate(movment * Time.deltaTime);
+            //transform.Translate(movment * Time.deltaTime);
 
             float vv = Input.GetAxis("Mouse Y");
             Vector3 rot = new Vector3(-vv* rotspeed, 0, 0);

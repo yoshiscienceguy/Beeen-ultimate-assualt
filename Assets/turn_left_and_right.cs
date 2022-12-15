@@ -12,7 +12,7 @@ public class turn_left_and_right : MonoBehaviour
     public float walkingspeed = 10f;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
-
+    public bool hacksForDevs;
     void Start()
     {
         speed = walkingspeed;
@@ -42,29 +42,52 @@ public class turn_left_and_right : MonoBehaviour
             speed = walkingspeed;
         }
 
+        if (hacksForDevs == true)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                jumpSpeed = 100.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                jumpSpeed = 25.0f;
+            }
+            if (Input.GetKey(KeyCode.L))
+            {
+                gravity = 9999.0f;
+            }
+            else
+            {
+                gravity = 50.0f;
+            }
+        }
         float oldy = moveDirection.y;
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = moveDirection * speed;
-        if (controller.isGrounded)
-          
-
+        if (Input.GetButton("Jump"))
         {
-            // We are grounded, so recalculate
-            // move direction directly from axes
-
-            
-
-            if (Input.GetButton("Jump"))
+            moveDirection.y = jumpSpeed;
+        }
+        if (hacksForDevs == false)
+        {
+            if (controller.isGrounded)
             {
+               //We are grounded, so recalculate
+               //move direction directly from axes
+
+
+
+              if (Input.GetButton("Jump"))
+              {
                 moveDirection.y = jumpSpeed;
+              }
+            }
+            else
+            {
+                moveDirection.y = oldy;
             }
         }
-        else
-        {
-            moveDirection.y = oldy;
-        }
-
         // Apply gravity
         moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
 
