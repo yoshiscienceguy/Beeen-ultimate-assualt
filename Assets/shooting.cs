@@ -32,6 +32,7 @@ public class shooting : MonoBehaviour
         ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
         reloading = false;
         canshoot = true;
+        lrmaxmag = 30;
     }
     
     public void reloaded()
@@ -41,14 +42,6 @@ public class shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<turn_left_and_right>().hacksForDevs == true)
-        {
-            lrmaxmag = 250;
-        }
-        if (GetComponent<turn_left_and_right>().hacksForDevs == false)
-        {
-            lrmaxmag = 30;
-        }
     
         if (ctime>= lrfreq)
         {
