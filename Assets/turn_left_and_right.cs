@@ -19,7 +19,7 @@ public class turn_left_and_right : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         // let the gameObject fall down
-        gameObject.transform.position = new Vector3(0, 5, 0);
+        //gameObject.transform.position = new Vector3(0, 5, 0);
     }
 
     void Update()
