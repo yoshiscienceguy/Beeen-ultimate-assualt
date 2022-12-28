@@ -6,12 +6,15 @@ using Unity.Netcode;
 public class NetworkController : NetworkBehaviour
 {
     public Transform Spawn;
-
+    public GameObject Camera;
     private ulong myid;
 
 
     public override void OnNetworkSpawn()
     {
+        if (IsOwner) {
+            Camera.gameObject.SetActive(true);
+        }
         GameObject safetySpawn = GameObject.Find("spawn A");
         if (safetySpawn == null)
         {
