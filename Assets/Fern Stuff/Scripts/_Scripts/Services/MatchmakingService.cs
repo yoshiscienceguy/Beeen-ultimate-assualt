@@ -58,11 +58,7 @@ public static class MatchmakingService {
         // Create a lobby, adding the relay join code to the lobby data
         var options = new CreateLobbyOptions {
             Data = new Dictionary<string, DataObject> {
-                { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) },
-                { Constants.GameTypeKey, new DataObject(DataObject.VisibilityOptions.Public, data.Type.ToString(), DataObject.IndexOptions.N1) }, {
-                    Constants.DifficultyKey,
-                    new DataObject(DataObject.VisibilityOptions.Public, data.Difficulty.ToString(), DataObject.IndexOptions.N2)
-                }
+                { Constants.JoinKey, new DataObject(DataObject.VisibilityOptions.Member, joinCode) }
             }
         };
 
