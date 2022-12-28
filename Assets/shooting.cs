@@ -10,7 +10,7 @@ public class shooting : MonoBehaviour
     public LayerMask lm;
     public float knokback = 50f;
     public float lrrange;
-    public GameObject mf;
+    public GameObject lrmf;
     public GameObject lr;
     private float ctime;
     public Light lrlight;
@@ -90,7 +90,7 @@ public class shooting : MonoBehaviour
                         
 
                     }
-                    StartCoroutine("Mf");
+                    StartCoroutine("lrMf");
                     if (lrcurrentmag > 0)
                     {
                         lrcurrentmag -= 1;
@@ -117,9 +117,9 @@ public class shooting : MonoBehaviour
     }
     IEnumerator lrMf()
     {
-        mf.SetActive(true);
+        lrmf.SetActive(true);
         yield return new WaitForSeconds(.05f);
-        mf.SetActive(false);
+        lrmf.SetActive(false);
     }
     IEnumerator hit()
     {
@@ -129,8 +129,8 @@ public class shooting : MonoBehaviour
     }
     IEnumerator wait()
     {
-        mf.SetActive(true);
+        lrmf.SetActive(true);
         yield return new WaitForSeconds(1f);
-        mf.SetActive(false);
+        lrmf.SetActive(false);
     }
 }
