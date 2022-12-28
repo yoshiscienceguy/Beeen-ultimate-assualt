@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour {
-    [SerializeField] private PlayerController _playerPrefab;
+    [SerializeField] private NetworkController _playerPrefab;
 
     public override void OnNetworkSpawn() {
         SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);

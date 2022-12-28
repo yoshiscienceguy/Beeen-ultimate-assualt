@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 8639510165734759605}
   - component: {fileID: 7719894236855298381}
   - component: {fileID: 4738454119287482579}
-  - component: {fileID: 8923776535729374028}
   m_Layer: 0
   m_Name: an eye
   m_TagString: Untagged
@@ -116,19 +115,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8923776535729374028
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610922563027272877}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6417689240152419546
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +190,6 @@ GameObject:
   - component: {fileID: 4786136285948606614}
   - component: {fileID: 3394440368472298872}
   - component: {fileID: 5355568462733363888}
-  - component: {fileID: 4261062234162767311}
   m_Layer: 0
   m_Name: aslo an eye
   m_TagString: Untagged
@@ -278,19 +263,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4261062234162767311
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7316968358589489806}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8141290739738544503
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +274,6 @@ GameObject:
   - component: {fileID: 6674450283649078800}
   - component: {fileID: 4528630363871468367}
   - component: {fileID: 2498808289696077493}
-  - component: {fileID: 894271556795983071}
   m_Layer: 0
   m_Name: an eye (1)
   m_TagString: Untagged
@@ -375,19 +346,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &894271556795983071
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8141290739738544503}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8816462789265484508
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,8 +357,6 @@ GameObject:
   - component: {fileID: 5143819832295558583}
   - component: {fileID: 5518454094405510918}
   - component: {fileID: 1531767832011780624}
-  - component: {fileID: 2772710572878911821}
-  - component: {fileID: 4883266373885496510}
   m_Layer: 0
   m_Name: player model
   m_TagString: Untagged
@@ -476,38 +432,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2772710572878911821
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8816462789265484508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &4883266373885496510
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8816462789265484508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9042497038610654832
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +443,6 @@ GameObject:
   - component: {fileID: 1535474649164407221}
   - component: {fileID: 8601302434339181827}
   - component: {fileID: 6993986766274557493}
-  - component: {fileID: 7449258621144301981}
   m_Layer: 0
   m_Name: an eye (2)
   m_TagString: Untagged
@@ -592,16 +515,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7449258621144301981
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9042497038610654832}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

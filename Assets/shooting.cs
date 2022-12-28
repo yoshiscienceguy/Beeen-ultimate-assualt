@@ -29,7 +29,10 @@ public class shooting : MonoBehaviour
     void Start()
     {
         lrcurrentmag = lrmaxmag;
-        ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+        if (ammo != null)
+        {
+            ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+        }
         reloading = false;
         canshoot = true;
         lrmaxmag = 30;
