@@ -258,7 +258,7 @@ MonoBehaviour:
   speed: 20
   jumpSpeed: 8
   gravity: 20
-  rotspeed: 90
+  rotspeed: 60
 --- !u!114 &1880219391032943909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,9 +440,9 @@ MonoBehaviour:
   speed: 8.888889e+18
   jumpSpeed: 25
   gravity: 50
-  rotspeed: 300
-  Sprintingspeed: 50
-  walkingspeed: 10
+  rotspeed: 60
+  Sprintingspeed: 27
+  walkingspeed: 15
   hacksForDevs: 0
 --- !u!143 &1880219391301234156
 CharacterController:
@@ -806,6 +806,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0158c43983bbf06468a9655426266901, type: 3}
       propertyPath: m_Name
       value: ak-47A
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0158c43983bbf06468a9655426266901, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3316992658331686828, guid: 0158c43983bbf06468a9655426266901, type: 3}
       propertyPath: m_LocalPosition.x
