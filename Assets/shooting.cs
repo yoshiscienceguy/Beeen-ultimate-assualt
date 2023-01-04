@@ -47,6 +47,8 @@ public class shooting : NetworkBehaviour
     [ServerRpc]
     public void PlayerShootGunServerRpc(Vector3  barrelo, Vector3  barrelTD, ServerRpcParams serverRpcParams = default)
     {
+        if (!IsOwner)
+            return;
         var clientId = serverRpcParams.Receive.SenderClientId;
         if (NetworkManager.ConnectedClients.ContainsKey(clientId))
         {
