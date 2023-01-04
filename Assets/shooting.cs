@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class shooting : MonoBehaviour
+public class shooting : NetworkBehaviour
 {
     public float lrfreq = .1f;
     public Transform barrel;
@@ -42,6 +43,46 @@ public class shooting : MonoBehaviour
     {
         reloading = false;
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayerShootGunServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        if (NetworkManager.ConnectedClients.ContainsKey(clientId))
+        {
+            var client = NetworkManager.ConnectedClients[clientId];
+            
+            RaycastHit hit;
+            if (Physics.Raycast(barrel.position, barrel.TransformDirection(Vector3.forward), out hit, lrrange, lm))
+            {
+                if (splodeyboi == true)
+                {
+                    Collider[] victems = Physics.OverlapSphere(hit.point, exlposionradios);
+                    foreach (Collider body in victems)
+                    {
+
+                        Rigidbody rb = body.GetComponent<Rigidbody>();
+                        if (rb != null)
+                        {
+                            rb.AddExplosionForce(explosiveforce, hit.point, exlposionradios);
+                        }
+                    }
+                }
+                else
+                {
+                    GameObject victem = hit.collider.gameObject;
+                    if (victem.GetComponent<Rigidbody>())
+                    {
+                        //StartCoroutine("hit");
+                        victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
+                    }
+                }
+
+
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -62,34 +103,15 @@ public class shooting : MonoBehaviour
                         lrcurrentmag = lrmaxmag;
                         reloading = false;
                     }
-                    RaycastHit hit;
-                    if (Physics.Raycast(barrel.position, barrel.TransformDirection(Vector3.forward), out hit, lrrange, lm))
-                    {
-                        if(splodeyboi == true)
-                        {
-                            Collider[] victems = Physics.OverlapSphere(hit.point, exlposionradios);
-                            foreach (Collider body in victems) 
-                            {
 
-                                Rigidbody rb = body.GetComponent<Rigidbody>();
-                                if(rb != null)
-                                {
-                                    rb.AddExplosionForce(explosiveforce, hit.point, exlposionradios);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            GameObject victem = hit.collider.gameObject;
-                            if (victem.GetComponent<Rigidbody>())
-                            {
-                                StartCoroutine("hit");
-                                victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
-                            }
-                        }
-                        
+                 
 
-                    }
+                    PlayerShootGunServerRpc();
+
+
+                    StartCoroutine("hit");
+
+
                     StartCoroutine("lrMf");
                     if (lrcurrentmag > 0)
                     {
