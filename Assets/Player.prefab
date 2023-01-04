@@ -443,7 +443,7 @@ MonoBehaviour:
   rotspeed: 100
   Sprintingspeed: 27
   walkingspeed: 15
-  hacksForDevs: 0
+  hacksForDevs: 1
 --- !u!143 &1880219391301234156
 CharacterController:
   m_ObjectHideFlags: 0
