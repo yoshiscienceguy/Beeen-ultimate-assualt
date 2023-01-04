@@ -25,7 +25,7 @@ public class shooting : NetworkBehaviour
     public bool splodeyboi;
     public float explosiveforce = 200;
     public float exlposionradios = 25;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,60 +38,59 @@ public class shooting : NetworkBehaviour
         canshoot = true;
         lrmaxmag = 30;
     }
-    
+
     public void reloaded()
     {
         reloading = false;
     }
 
     [ServerRpc]
-    public void PlayerShootGunServerRpc(Vector3  barrelo, Vector3  barrelTD, ServerRpcParams serverRpcParams = default)
+    public void PlayerShootGunServerRpc(Vector3 barrelo, Vector3 barrelTD, ServerRpcParams serverRpcParams = default)
     {
-        if (!IsOwner)
-            return;
-        var clientId = serverRpcParams.Receive.SenderClientId;
-        if (NetworkManager.ConnectedClients.ContainsKey(clientId))
+        RaycastHit hit;
+        if (Physics.Raycast(barrelo, barrelTD, out hit, lrrange, lm))
         {
-            var client = NetworkManager.ConnectedClients[clientId];
-            
-            RaycastHit hit;
-            if (Physics.Raycast(barrelo, barrelTD, out hit, lrrange, lm))
+            if (splodeyboi == true)
             {
-                if (splodeyboi == true)
+                Collider[] victems = Physics.OverlapSphere(hit.point, exlposionradios);
+                foreach (Collider body in victems)
                 {
-                    Collider[] victems = Physics.OverlapSphere(hit.point, exlposionradios);
-                    foreach (Collider body in victems)
-                    {
 
-                        Rigidbody rb = body.GetComponent<Rigidbody>();
-                        if (rb != null)
-                        {
-                            rb.AddExplosionForce(explosiveforce, hit.point, exlposionradios);
-                        }
+                    Rigidbody rb = body.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.AddExplosionForce(explosiveforce, hit.point, exlposionradios);
                     }
                 }
-                else
-                {
-                    GameObject victem = hit.collider.gameObject;
-                    if (victem.GetComponent<Rigidbody>())
-                    {
-                        //StartCoroutine("hit");
-                        victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
-                    }
-                }
-
-
             }
+            else
+            {
+                GameObject victem = hit.collider.gameObject;
+                if (victem.GetComponent<Rigidbody>())
+                {
+                    //StartCoroutine("hit");
+                    victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
+
+                    health healthScript = hit.collider.gameObject.GetComponent<health>();
+                    if (healthScript != null)
+                    {
+                        healthScript.takedamage(3);
+                    }
+                }
+            }
+
+
         }
     }
+
 
     // Update is called once per frame
     void Update()
     {
-    
-        if (ctime>= lrfreq)
+        if (!IsOwner) { return; }
+        if (ctime >= lrfreq)
         {
-            if (canshoot== true)
+            if (canshoot == true)
             {
 
 
@@ -106,7 +105,7 @@ public class shooting : NetworkBehaviour
                         reloading = false;
                     }
 
-                 
+
 
                     PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
 
@@ -126,7 +125,7 @@ public class shooting : NetworkBehaviour
                     lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
                     ctime = 0;
                 }
-           
+
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     reloading = true;
