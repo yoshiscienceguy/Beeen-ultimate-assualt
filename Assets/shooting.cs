@@ -45,7 +45,7 @@ public class shooting : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void PlayerShootGunServerRpc(ServerRpcParams serverRpcParams = default)
+    public void PlayerShootGunServerRpc(Vector3  barrelo, Vector3  barrelTD, ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         if (NetworkManager.ConnectedClients.ContainsKey(clientId))
@@ -53,7 +53,7 @@ public class shooting : NetworkBehaviour
             var client = NetworkManager.ConnectedClients[clientId];
             
             RaycastHit hit;
-            if (Physics.Raycast(barrel.position, barrel.TransformDirection(Vector3.forward), out hit, lrrange, lm))
+            if (Physics.Raycast(barrelo, barrelTD, out hit, lrrange, lm))
             {
                 if (splodeyboi == true)
                 {
@@ -106,10 +106,10 @@ public class shooting : NetworkBehaviour
 
                  
 
-                    PlayerShootGunServerRpc();
+                    PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
 
-
-                    StartCoroutine("hit");
+                    //lorenzo fix this
+                    //StartCoroutine("hit");
 
 
                     StartCoroutine("lrMf");
@@ -117,7 +117,10 @@ public class shooting : NetworkBehaviour
                     {
                         lrcurrentmag -= 1;
                     }
-                    ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+                    if (ammo != null)
+                    {
+                        ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+                    }
                     lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
                     ctime = 0;
                 }

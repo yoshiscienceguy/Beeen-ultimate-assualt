@@ -12,7 +12,8 @@ public class reloadAnimationEvent : MonoBehaviour
     }
 
     public void reloadScript() {
-        GameObject.Find("player horizontle turn").GetComponent<shooting>().reloaded();
+        //currently not working
+        //GameObject.Find("player horizontle turn").GetComponent<shooting>().reloaded();
 
 
     }
