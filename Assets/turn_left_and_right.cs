@@ -52,7 +52,7 @@ public class turn_left_and_right : MonoBehaviour
             {
                 jumpSpeed = 25.0f;
             }
-            if (Input.GetKey(KeyCode.L))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
                 gravity = 9999.0f;
             }
