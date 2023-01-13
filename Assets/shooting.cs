@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using TMPro;
 
 public class shooting : NetworkBehaviour
 {
@@ -17,7 +18,7 @@ public class shooting : NetworkBehaviour
     public Light lrlight;
     public float lrcurrentmag;
     public float lrmaxmag = 30;
-    public Text ammo;
+    public TextMeshProUGUI ammo;
     public GameObject hitmarker;
     public bool reloading;
     public Animator anim;
@@ -27,13 +28,18 @@ public class shooting : NetworkBehaviour
     public float exlposionradios = 25;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        lrcurrentmag = lrmaxmag;
-        if (ammo != null)
-        {
-            ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+        name = "Player " + GetComponentInParent<NetworkObject>().OwnerClientId.ToString();
+        if (!GetComponentInParent<NetworkObject>().IsOwner) {
+            enabled = false;
+            return;
         }
+        lrcurrentmag = lrmaxmag;
+        ammo = GameObject.Find("Ammo Count").GetComponent<TextMeshProUGUI>();
+        Debug.Log(name);
+        ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+
         reloading = false;
         canshoot = true;
         lrmaxmag = 30;
@@ -87,7 +93,7 @@ public class shooting : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsOwner) { return; }
+        if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
         if (ctime >= lrfreq)
         {
             if (canshoot == true)
@@ -112,16 +118,12 @@ public class shooting : NetworkBehaviour
                     //lorenzo fix this
                     //StartCoroutine("hit");
 
-
+                    lrcurrentmag--;
                     StartCoroutine("lrMf");
-                    if (lrcurrentmag > 0)
-                    {
-                        lrcurrentmag -= 1;
-                    }
-                    if (ammo != null)
-                    {
+            
+            
                         ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
-                    }
+             
                     lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
                     ctime = 0;
                 }
