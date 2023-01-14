@@ -4,9 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
 
-public enum Rarity { 
-    good,bad,horrible,meh
-}
+
 
 public class health : NetworkBehaviour
 {
@@ -14,8 +12,7 @@ public class health : NetworkBehaviour
     public NetworkVariable<float> netHealth = new NetworkVariable<float>();
     private float currenthealth;
     public Image healthbar;
-    public Rarity gunRarity = Rarity.horrible;
-
+   
     // Start is called before the first frame update
 
 
