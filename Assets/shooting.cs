@@ -85,7 +85,8 @@ public class shooting : NetworkBehaviour
                     health healthScript = hit.collider.gameObject.GetComponent<health>();
                     if (healthScript != null)
                     {
-                        healthScript.takedamage(3);
+                        //healthScript.netHealth.Value -= 3;
+                        healthScript.takedamageServerRpc(3);
                     }
                 }
             }
