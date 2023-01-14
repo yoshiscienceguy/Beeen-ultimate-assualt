@@ -10,19 +10,18 @@ public class health : NetworkBehaviour
     private float currenthealth;
     public Image healthbar;
     // Start is called before the first frame update
-    public void Awake()
+    public override void OnNetworkSpawn()
     {
         currenthealth = maxhealth;
         netHealth = new NetworkVariable<float>();
 
             netHealth.Value = currenthealth;
 
-        if (!IsOwner) {
-            return;
+
+        if (IsOwner)
+        {
+            healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
         }
-        
-        healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
-        
        
     }
    
@@ -32,17 +31,15 @@ public class health : NetworkBehaviour
     {
         
     }
-
-
     public void takedamage(float damage)
     {
         netHealth.Value -= damage;
+        Debug.Log(netHealth.Value);
         currenthealth -= damage;
-        if (IsOwner)
-        {
+   
             healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
             healthbar.fillAmount = netHealth.Value / maxhealth;
-        }
+     
         if(currenthealth <= 0)
         {
             //oof

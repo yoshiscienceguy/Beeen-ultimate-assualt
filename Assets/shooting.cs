@@ -28,9 +28,14 @@ public class shooting : NetworkBehaviour
     public float exlposionradios = 25;
 
     // Start is called before the first frame update
-    void Awake()
+    public override void OnNetworkSpawn()
     {
-        name = "Player " + GetComponentInParent<NetworkObject>().OwnerClientId.ToString();
+        base.OnNetworkSpawn();
+   
+        if (!IsServer)
+        {
+            transform.parent.name = "Player " + transform.parent.GetComponent<NetworkObject>().OwnerClientId.ToString();
+        }
         if (!GetComponentInParent<NetworkObject>().IsOwner) {
             enabled = false;
             return;
