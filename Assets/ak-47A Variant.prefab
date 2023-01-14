@@ -331,18 +331,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1880219392435413554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5820784956094996626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0de5bbfcea047e640a8a35f99b32554b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-5635755887247237962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +343,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8533bfbf73f5484ba1e29290fd21d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShootingFrequency: 0.5
+  bulletAmount: 1
+  maxDamage: 10
+  minimumDamage: 1
+  raycasting: 0
+--- !u!114 &1880219392435413554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820784956094996626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de5bbfcea047e640a8a35f99b32554b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &2966397181467496801
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820784956094996626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.5783348, z: 9.731573}
+  m_Center: {x: 0, y: 0.043912157, z: -0.12789159}
 --- !u!4 &6596724242967607848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0158c43983bbf06468a9655426266901, type: 3}
