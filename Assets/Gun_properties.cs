@@ -8,7 +8,7 @@ public enum Rarity
 }
 public class Gun_properties : MonoBehaviour
 {
-    public float ShootingFrequency = 0.5;
+    public float ShootingFrequency = 0.5f;
     public float bulletAmount = 1;
     public float maxDamage = 10;
     public float minimumDamage = 1;
