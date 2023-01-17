@@ -39,7 +39,7 @@ public class health : NetworkBehaviour
     {
         
     }
-    public void TakeDamage(float damage) {
+    public void TakeDamage(float damage,ulong whoShot) {
         if (IsServer)
         {
             netHealth.Value -= damage;
@@ -49,7 +49,7 @@ public class health : NetworkBehaviour
             updateHealthClientRpc();
         }
         else {
-            takedamageServerRpc(damage);
+            takedamageServerRpc(damage,whoShot);
         }
         
 
@@ -72,8 +72,11 @@ public class health : NetworkBehaviour
         }
     }
     [ServerRpc (RequireOwnership =false)]
-    public void takedamageServerRpc(float damage)
+    public void takedamageServerRpc(float damage,ulong whoShot)
     {
-        TakeDamage(damage);
+        if (whoShot != GetComponent<NetworkObject>().OwnerClientId)
+        {
+            TakeDamage(damage,whoShot);
+        }
     }
 }

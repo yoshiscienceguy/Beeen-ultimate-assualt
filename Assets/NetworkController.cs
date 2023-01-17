@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using TMPro;
 
 public class NetworkController : NetworkBehaviour
 {
     public Transform Spawn;
     public GameObject Camera;
     private ulong myid;
+    TextMeshProUGUI playerName;
+
 
 
     public override void OnNetworkSpawn()
     {
         if (IsOwner) {
             Camera.gameObject.SetActive(true);
+
         }
         GameObject safetySpawn = GameObject.Find("spawn A");
         if (safetySpawn == null)
@@ -23,6 +27,9 @@ public class NetworkController : NetworkBehaviour
         Spawn = safetySpawn.transform;
         Vector3 rPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)) + Spawn.position;
         transform.position = rPos;
+        name = PlayersLobbyInformation.Instance.playerNames[GetComponent<NetworkObject>().OwnerClientId];
+        playerName.text = name;
+
     }
     // Start is called before the first frame update
     void Start()

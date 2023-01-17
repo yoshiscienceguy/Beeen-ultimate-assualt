@@ -63,7 +63,8 @@ public class RoomScreen : MonoBehaviour {
             }
             else {
                 var panel = Instantiate(_playerPanelPrefab, _playerPanelParent);
-                panel.Init(player.Key);
+                //panel.GetComponent<NetworkObject>().Spawn();
+                panel.Init(player.Key, NetworkManager.Singleton.LocalClientId);
                 _playerPanels.Add(panel);
             }
         }

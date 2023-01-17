@@ -26,17 +26,21 @@ public class shooting : NetworkBehaviour
     public bool splodeyboi;
     public float explosiveforce = 200;
     public float exlposionradios = 25;
+    public float weaponDamage = 3;
+
+    public GameObject bulletDecal;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-   
+
         if (!IsServer)
         {
             transform.parent.name = "Player " + transform.parent.GetComponent<NetworkObject>().OwnerClientId.ToString();
         }
-        if (!GetComponentInParent<NetworkObject>().IsOwner) {
+        if (!GetComponentInParent<NetworkObject>().IsOwner)
+        {
             enabled = false;
             return;
         }
@@ -56,7 +60,7 @@ public class shooting : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void PlayerShootGunServerRpc(Vector3 barrelo, Vector3 barrelTD, ServerRpcParams serverRpcParams = default)
+    public void PlayerShootGunServerRpc(Vector3 barrelo, Vector3 barrelTD, float knockback, float dmg, ulong whoShot, ServerRpcParams serverRpcParams = default)
     {
         RaycastHit hit;
         if (Physics.Raycast(barrelo, barrelTD, out hit, lrrange, lm))
@@ -77,19 +81,25 @@ public class shooting : NetworkBehaviour
             else
             {
                 GameObject victem = hit.collider.gameObject;
-                if (victem.GetComponent<Rigidbody>())
-                {
-                    //StartCoroutine("hit");
-                    victem.GetComponent<Rigidbody>().AddForce(barrel.transform.TransformDirection(Vector3.forward) * knokback, ForceMode.Impulse);
 
-                    health healthScript = hit.collider.gameObject.GetComponent<health>();
-                    if (healthScript != null)
+                    if (victem.GetComponent<Rigidbody>())
                     {
-                        //healthScript.netHealth.Value -= 3;
-                        healthScript.takedamageServerRpc(3);
+                        //StartCoroutine("hit");
+                        victem.GetComponent<Rigidbody>().AddForce(barrelTD * knockback, ForceMode.Impulse);
+
+                        health healthScript = hit.collider.gameObject.GetComponent<health>();
+                        if (healthScript != null)
+                        {
+                            //healthScript.netHealth.Value -= 3;
+                            healthScript.takedamageServerRpc(dmg, whoShot);
+                        }
                     }
-                }
+              
             }
+
+            GameObject decalClone = Instantiate(bulletDecal, hit.point, Quaternion.identity);
+            decalClone.GetComponent<NetworkObject>().Spawn();
+
 
 
         }
@@ -119,17 +129,18 @@ public class shooting : NetworkBehaviour
 
 
 
-                    PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
+                    //PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
+                    PlayerShootGunServerRpc(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
 
                     //lorenzo fix this
                     //StartCoroutine("hit");
 
                     lrcurrentmag--;
                     StartCoroutine("lrMf");
-            
-            
-                        ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
-             
+
+
+                    ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+
                     lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
                     ctime = 0;
                 }
