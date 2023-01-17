@@ -815,7 +815,7 @@ MonoBehaviour:
   hitmarker: {fileID: 0}
   reloading: 0
   anim: {fileID: 0}
-  canshoot: 0
+  canshoot: 1
   splodeyboi: 0
   explosiveforce: 200
   exlposionradios: 25
