@@ -19,6 +19,9 @@ public class NetworkController : NetworkBehaviour
             Camera.gameObject.SetActive(true);
 
         }
+        name = PlayersLobbyInformation.Instance.GetMyName(GetComponent<NetworkObject>().OwnerClientId);
+        playerName.text = name;
+
         GameObject safetySpawn = GameObject.Find("spawn A");
         if (safetySpawn == null)
         {
@@ -28,8 +31,7 @@ public class NetworkController : NetworkBehaviour
         Vector3 rPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)) + Spawn.position;
         transform.position = rPos;
        
-        name = PlayersLobbyInformation.Instance.GetMyName(GetComponent<NetworkObject>().OwnerClientId);
-        playerName.text = name;
+        
 
     }
     // Start is called before the first frame update

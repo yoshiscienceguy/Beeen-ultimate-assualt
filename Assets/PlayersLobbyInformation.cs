@@ -5,8 +5,8 @@ using Unity.Netcode;
 
 public class PlayersLobbyInformation : NetworkBehaviour
 {
-    private static  PlayersLobbyInformation instance;
-    public static  PlayersLobbyInformation Instance { get { return instance; } }
+    private static PlayersLobbyInformation instance;
+    public static PlayersLobbyInformation Instance { get { return instance; } }
     public Dictionary<ulong, string> playerNames = new Dictionary<ulong, string>();
     public Transform panels;
     private void Awake()
@@ -21,54 +21,97 @@ public class PlayersLobbyInformation : NetworkBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
-    
+
     }
 
-    [ServerRpc(RequireOwnership =false)]
-    public void updateNamesServerRpc(ulong newID, string newName) {
-        Debug.Log(newName + " created");
-        updateEveryoneClientRpc(newID, newName);   
-    }
-
-
-    [ClientRpc]
-    public void updateEveryoneClientRpc(ulong newID, string newName)
+    [ServerRpc(RequireOwnership = false)]
+    public void addUpdateNameServerRpc(ulong newID, string newName)
     {
         if (!playerNames.ContainsKey(newID))
         {
-            Debug.Log("added " + newName + " , ID: " + newID);
             playerNames.Add(newID, newName);
         }
         else
         {
             playerNames[newID] = newName;
         }
-        Debug.Log("Passed");
-        foreach (Transform playerPanel in panels) {
-            playerPanel.GetComponent<LobbyPlayerPanel>().UpdateEveryone(playerNames);
-        }
-        
+
+        addUpdateNameClientRpc(newID, newName);
     }
 
-    public string GetMyName(ulong id) {
-        Debug.Log("-----------------------------------");
-        foreach (var thing in playerNames) {
-            Debug.Log(thing.Value);
-        }
-        Debug.Log("-----------------------------------");
-        if (playerNames.ContainsKey(id))
+
+    [ClientRpc]
+    public void addUpdateNameClientRpc(ulong newID, string newName)
+    {
+        if (!playerNames.ContainsKey(newID))
         {
-            return playerNames[id];
+            playerNames.Add(newID, newName);
         }
-        else {
-            return "N/A";
+        else
+        {
+            playerNames[newID] = newName;
+        }
+        foreach (Transform playerPanel in panels)
+        {
+            playerPanel.GetComponent<LobbyPlayerPanel>().UpdateEveryone(playerNames);
+        }
+
+    }
+
+    [ServerRpc (RequireOwnership =false)]
+    public void pullNamesServerRpc()
+    {
+        foreach (var player in playerNames)
+        {
+            pullEveryonesNameClientRpc(player.Key, player.Value);
+        }
+
+    }
+
+    [ClientRpc]
+    public void pullEveryonesNameClientRpc(ulong newID, string newName)
+    {
+        if (IsServer) { return; }
+        if (!playerNames.ContainsKey(newID))
+        {
+            playerNames.Add(newID, newName);
+        }
+        else
+        {
+            playerNames[newID] = newName;
         }
     }
- 
+    public string GetMyName(ulong id)
+    {
+
+
+        pullNamesServerRpc();
+
+
+        if (!IsOwner)
+        {
+            return "";
+
+        }
+
+        if (playerNames.ContainsKey(id))
+        {
+            addUpdateNameServerRpc(id, playerNames[id]);
+            return playerNames[id];
+        }
+        else
+        {
+            addUpdateNameServerRpc(id, "Player " + id.ToString());
+            return "Player " + id.ToString();
+        }
+
+
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -12,13 +12,11 @@ public class LobbyPlayerPanel : MonoBehaviour {
 
     public ulong PlayerId { get; private set; }
 
+
     public void Init(ulong playerId,ulong ownerID) {
         PlayerId = playerId;
-        _name = "Player " + playerId.ToString();
-        _Name.text = _name;
-        _NameText.text = _name;
-        FindObjectOfType<PlayersLobbyInformation>().updateNamesServerRpc(playerId, _name);
-        Debug.Log(playerId.ToString() +", "+ _name+" created");
+        
+        
         if (ownerID == playerId)
         {
             _NameText.gameObject.SetActive(false);
@@ -26,16 +24,22 @@ public class LobbyPlayerPanel : MonoBehaviour {
         else {
             _Name.gameObject.SetActive(false);
         }
+        name = PlayersLobbyInformation.Instance.GetMyName(playerId);
+        _name = name;
+        _NameText.text = name;
+   
+        if (name == "") {
+            _Name.text = "Player " + playerId.ToString();
+        }
         //_nameText.text = $"Player {playerId}";
     }
     public void UpdateMyName() {
         _name = _Name.text;
-        FindObjectOfType<PlayersLobbyInformation>().updateNamesServerRpc(PlayerId, _name);
+        FindObjectOfType<PlayersLobbyInformation>().addUpdateNameServerRpc(PlayerId, _name);
     }
     public void UpdateEveryone(Dictionary<ulong,string> names) {
         if (names.ContainsKey(PlayerId)) {
-         
-            
+
             _NameText.text = names[PlayerId];
             _name = names[PlayerId];
         }
@@ -45,5 +49,7 @@ public class LobbyPlayerPanel : MonoBehaviour {
     public void SetReady() {
         _statusText.text = "Ready";
         _statusText.color = Color.green;
+        _name = _Name.text;
+        FindObjectOfType<PlayersLobbyInformation>().addUpdateNameServerRpc(PlayerId, _name);
     }
 }

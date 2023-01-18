@@ -65,6 +65,8 @@ public class RoomScreen : MonoBehaviour {
                 var panel = Instantiate(_playerPanelPrefab, _playerPanelParent);
                 //panel.GetComponent<NetworkObject>().Spawn();
                 panel.Init(player.Key, NetworkManager.Singleton.LocalClientId);
+                FindObjectOfType<PlayersLobbyInformation>().GetMyName(player.Key);
+
                 _playerPanels.Add(panel);
             }
         }
