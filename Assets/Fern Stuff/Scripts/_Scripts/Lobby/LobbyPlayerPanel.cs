@@ -17,6 +17,7 @@ public class LobbyPlayerPanel : MonoBehaviour {
         _name = "Player " + playerId.ToString();
         _Name.text = _name;
         FindObjectOfType<PlayersLobbyInformation>().updateNamesServerRpc(playerId, _name);
+        Debug.Log(playerId.ToString() + " created");
         if (ownerID == playerId)
         {
             _NameText.gameObject.SetActive(false);
