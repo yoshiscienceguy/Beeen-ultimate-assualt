@@ -24,7 +24,7 @@ public class GameManager : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
         SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
-        Debug.Log(name);
+
     }   
 
     [ServerRpc(RequireOwnership = false)]

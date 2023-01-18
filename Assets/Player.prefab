@@ -376,6 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spawn: {fileID: 0}
   Camera: {fileID: 1802971723}
+  playerName: {fileID: 6014798759636777199}
 --- !u!114 &6958735180456057950
 MonoBehaviour:
   m_ObjectHideFlags: 0

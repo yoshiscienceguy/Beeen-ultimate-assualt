@@ -9,7 +9,7 @@ public class NetworkController : NetworkBehaviour
     public Transform Spawn;
     public GameObject Camera;
     private ulong myid;
-    TextMeshProUGUI playerName;
+    public TMP_Text playerName;
 
 
 
@@ -27,8 +27,8 @@ public class NetworkController : NetworkBehaviour
         Spawn = safetySpawn.transform;
         Vector3 rPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)) + Spawn.position;
         transform.position = rPos;
-        Debug.Log(GetComponent<NetworkObject>().OwnerClientId);
-        name = PlayersLobbyInformation.Instance.playerNames[GetComponent<NetworkObject>().OwnerClientId];
+       
+        name = PlayersLobbyInformation.Instance.GetMyName(GetComponent<NetworkObject>().OwnerClientId);
         playerName.text = name;
 
     }

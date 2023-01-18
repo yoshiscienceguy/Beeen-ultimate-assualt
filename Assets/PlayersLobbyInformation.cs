@@ -26,7 +26,7 @@ public class PlayersLobbyInformation : NetworkBehaviour
 
     [ServerRpc(RequireOwnership =false)]
     public void updateNamesServerRpc(ulong newID, string newName) {
-        
+        Debug.Log(newName + " created");
         updateEveryoneClientRpc(newID, newName);   
     }
 
@@ -36,12 +36,14 @@ public class PlayersLobbyInformation : NetworkBehaviour
     {
         if (!playerNames.ContainsKey(newID))
         {
+            Debug.Log("added " + newName + " , ID: " + newID);
             playerNames.Add(newID, newName);
         }
         else
         {
             playerNames[newID] = newName;
         }
+        Debug.Log("Passed");
         foreach (Transform playerPanel in panels) {
             playerPanel.GetComponent<LobbyPlayerPanel>().UpdateEveryone(playerNames);
         }
@@ -49,6 +51,11 @@ public class PlayersLobbyInformation : NetworkBehaviour
     }
 
     public string GetMyName(ulong id) {
+        Debug.Log("-----------------------------------");
+        foreach (var thing in playerNames) {
+            Debug.Log(thing.Value);
+        }
+        Debug.Log("-----------------------------------");
         if (playerNames.ContainsKey(id))
         {
             return playerNames[id];
