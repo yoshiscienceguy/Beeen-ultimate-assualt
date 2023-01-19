@@ -24,11 +24,11 @@ public class shooting : NetworkBehaviour
     public Animator anim;
     public bool canshoot;
     public bool splodeyboi;
-    public float explosiveforce = 200;
+    public float explosiveforce = 0;
     public float exlposionradios = 25;
     public float weaponDamage = 3;
-
     public GameObject bulletDecal;
+    public GameObject Scope;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -55,7 +55,7 @@ public class shooting : NetworkBehaviour
     }
 
     public void reloaded()
-    {
+    { 
         reloading = false;
     }
 
@@ -110,6 +110,15 @@ public class shooting : NetworkBehaviour
     void Update()
     {
         if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
+
+        if (Input.GetMouseButton(1))
+        {
+            GameObject.Find("Scope").SetActive(true);
+        }
+        else
+        {
+            GameObject.Find("Scope").SetActive(false);
+        }
         if (ctime >= lrfreq)
         {
             if (canshoot == true)

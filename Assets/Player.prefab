@@ -275,7 +275,9 @@ MonoBehaviour:
   explosiveforce: 100
   exlposionradios: 25
   weaponDamage: 3
+  GunHasScope: 1
   bulletDecal: {fileID: 511975977215923501, guid: 55430ecc0f467cc4aaa3c8dcc6ddf182, type: 3}
+  Scope: {fileID: 0}
 --- !u!114 &1566709131
 MonoBehaviour:
   m_ObjectHideFlags: 0
