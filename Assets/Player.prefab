@@ -241,7 +241,7 @@ MonoBehaviour:
   speed: 20
   jumpSpeed: 8
   gravity: 20
-  rotspeed: 100
+  rotspeed: 500
 --- !u!114 &1880219391032943909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +275,6 @@ MonoBehaviour:
   explosiveforce: 100
   exlposionradios: 25
   weaponDamage: 3
-  GunHasScope: 1
   bulletDecal: {fileID: 511975977215923501, guid: 55430ecc0f467cc4aaa3c8dcc6ddf182, type: 3}
   Scope: {fileID: 0}
 --- !u!114 &1566709131
@@ -518,8 +517,8 @@ MonoBehaviour:
   speed: 75
   jumpSpeed: 25
   gravity: 50
-  rotspeed: 100
-  Sprintingspeed: 100
+  rotspeed: 500
+  Sprintingspeed: 25
   walkingspeed: 15
   hacksForDevs: 0
 --- !u!114 &1880219391301234154
