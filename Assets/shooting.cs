@@ -113,7 +113,7 @@ public class shooting : NetworkBehaviour
         if (Input.GetMouseButton(1))
         {
             Scope.SetActive(true);
-            Camera.main.fieldOfView = 10;
+            Camera.main.fieldOfView = 5;
         }
         else
         {

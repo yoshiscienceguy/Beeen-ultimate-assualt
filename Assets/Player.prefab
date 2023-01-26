@@ -2051,7 +2051,7 @@ RectTransform:
   m_GameObject: {fileID: 1990737938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 62.462337, y: 63.253, z: 63.253}
+  m_LocalScale: {x: 94.48053, y: 95.67648, z: 95.67648}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 69483650}
@@ -2062,7 +2062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000061035, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1990737941
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   speed: 20
   jumpSpeed: 8
   gravity: 20
-  rotspeed: 500
+  rotspeed: 250
 --- !u!114 &1880219391032943909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2431,7 +2431,7 @@ MonoBehaviour:
   speed: 75
   jumpSpeed: 25
   gravity: 50
-  rotspeed: 400
+  rotspeed: 250
   Sprintingspeed: 25
   walkingspeed: 15
   hacksForDevs: 0

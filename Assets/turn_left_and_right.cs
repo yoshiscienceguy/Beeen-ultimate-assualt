@@ -27,20 +27,15 @@ public class turn_left_and_right : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift)) 
         {
             speed = Sprintingspeed;
-        }
-        if (Input.GetKeyDown(KeyCode.RightShift)) 
-        {
-            speed = Sprintingspeed;
+            Camera.main.fieldOfView = 80;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             speed = walkingspeed;
+            Camera.main.fieldOfView = 60;
         }
-        if (Input.GetKeyUp(KeyCode.RightShift))
-        {
-            speed = walkingspeed;
-        }
+       
 
         if (hacksForDevs == true)
         {
