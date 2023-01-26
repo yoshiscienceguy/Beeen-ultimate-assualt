@@ -110,15 +110,17 @@ public class shooting : NetworkBehaviour
     void Update()
     {
         if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
-
         if (Input.GetMouseButton(1))
         {
-            GameObject.Find("Scope").SetActive(true);
+            Scope.SetActive(true);
+            Camera.main.fieldOfView = 10;
         }
         else
         {
-            GameObject.Find("Scope").SetActive(false);
+            Scope.SetActive(false);
+            Camera.main.fieldOfView = 60;
         }
+        
         if (ctime >= lrfreq)
         {
             if (canshoot == true)
