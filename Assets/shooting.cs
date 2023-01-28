@@ -29,7 +29,7 @@ public class shooting : NetworkBehaviour
     public float weaponDamage = 3;
     public GameObject bulletDecal;
     public GameObject Scope;
-
+    public GameObject currentGun;
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
@@ -110,66 +110,85 @@ public class shooting : NetworkBehaviour
     void Update()
     {
         if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
-        if (Input.GetMouseButton(1))
+        if (currentGun != null)
         {
-            Scope.SetActive(true);
-            Camera.main.fieldOfView = 5;
-        }
-        else
-        {
-            Scope.SetActive(false);
-            Camera.main.fieldOfView = 60;
-        }
-        
-        if (ctime >= lrfreq)
-        {
-            if (canshoot == true)
+            if (Input.GetMouseButton(1))
             {
+                Scope.SetActive(true);
+                Camera.main.fieldOfView = 5;
+            }
+            else
+            {
+                Scope.SetActive(false);
+                Camera.main.fieldOfView = 60;
+            }
 
-
-                if (Input.GetMouseButton(0) && !reloading)
+            if (ctime >= lrfreq)
+            {
+                if (canshoot == true)
                 {
-                    if (lrcurrentmag <= 0)
+
+
+                    if (Input.GetMouseButton(0) && !reloading)
+                    {
+                        if (lrcurrentmag <= 0)
+                        {
+                            reloading = true;
+                            anim.SetTrigger("reload");
+                            StartCoroutine("wait");
+                            lrcurrentmag = lrmaxmag;
+                            reloading = false;
+                        }
+
+
+
+                        //PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
+                        PlayerShootGunServerRpc(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
+
+                        //lorenzo fix this
+                        //StartCoroutine("hit");
+
+                        lrcurrentmag--;
+                        StartCoroutine("lrMf");
+
+
+                        ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
+
+                        lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
+                        ctime = 0;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.R))
                     {
                         reloading = true;
                         anim.SetTrigger("reload");
-                        StartCoroutine("wait");
-                        lrcurrentmag = lrmaxmag;
                         reloading = false;
+                        lrcurrentmag = lrmaxmag;
                     }
-
-
-
-                    //PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
-                    PlayerShootGunServerRpc(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
-
-                    //lorenzo fix this
-                    //StartCoroutine("hit");
-
-                    lrcurrentmag--;
-                    StartCoroutine("lrMf");
-
-
-                    ammo.text = lrcurrentmag.ToString() + "/" + lrmaxmag.ToString();
-
-                    lrlight.intensity = (lrcurrentmag / lrmaxmag) * 10.0f;
-                    ctime = 0;
                 }
 
-                if (Input.GetKeyDown(KeyCode.R))
+            }
+            else
+            {
+                ctime += Time.deltaTime;
+            }
+        }
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward),out hit, 15, lm))
+        {
+            if(hit.collider.gameObject.CompareTag("gun"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    reloading = true;
-                    anim.SetTrigger("reload");
-                    reloading = false;
-                    lrcurrentmag = lrmaxmag;
+                    currentGun = hit.collider.gameObject;
+
+                    //absorb gun properties
+                    //enable gun
                 }
             }
+        }
 
-        }
-        else
-        {
-            ctime += Time.deltaTime;
-        }
+        
     }
     IEnumerator lrMf()
     {

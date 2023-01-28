@@ -2190,6 +2190,7 @@ MonoBehaviour:
   weaponDamage: 3
   bulletDecal: {fileID: 511975977215923501, guid: 55430ecc0f467cc4aaa3c8dcc6ddf182, type: 3}
   Scope: {fileID: 1990737938}
+  currentGun: {fileID: 0}
 --- !u!114 &1566709131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,7 +2795,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5635755887247237962, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
 --- !u!1 &1645652533871694038 stripped
 GameObject:
