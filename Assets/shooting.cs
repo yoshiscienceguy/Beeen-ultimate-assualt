@@ -30,6 +30,8 @@ public class shooting : NetworkBehaviour
     public GameObject bulletDecal;
     public GameObject Scope;
     public GameObject currentGun;
+
+    public GameObject[] GunSkins;
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
@@ -176,12 +178,21 @@ public class shooting : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward),out hit, 15, lm))
         {
-            if(hit.collider.gameObject.CompareTag("gun"))
+            if(hit.collider.gameObject.CompareTag("Any gun")||
+                hit.collider.gameObject.CompareTag("Good gun")||
+                hit.collider.gameObject.CompareTag("Meh gun"))
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     currentGun = hit.collider.gameObject;
-
+                    currentGun.SetActive(false);
+                    foreach (GameObject gun in GunSkins) {
+                        int gunid = gun.GetComponent<gunID>().id;
+                        if (currentGun.GetComponent<gunID>().id == gunid ) {
+                            gun.SetActive(true);
+                            break;
+                        }
+                    }
                     //absorb gun properties
                     //enable gun
                 }
