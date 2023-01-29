@@ -180,7 +180,7 @@ public class shooting : NetworkBehaviour
         {
             if (currentGun != null)
             {
-                currentGun.transform.position = transform.position + new Vector3(0, 2, 0);
+                currentGun.transform.position = transform.position + new Vector3(0, 0, 0);
                 currentGun.SetActive(true);
                 currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
                 currentGun = null;
@@ -201,7 +201,7 @@ public class shooting : NetworkBehaviour
                 {
                     if(currentGun != null)
                     {
-                        currentGun.transform.position = transform.position + new Vector3(0, 2, 0);
+                        currentGun.transform.position = transform.position + new Vector3(0, 0, 0);
                         currentGun.SetActive(true);
                         currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
                         currentGun = null;
