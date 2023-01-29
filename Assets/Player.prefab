@@ -2668,6 +2668,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8857399027282637213}
     m_Modifications:
+    - target: {fileID: 131916330454613946, guid: 8a977e0dca7ca9341960ec12ad682c79, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 131916330454613946, guid: 8a977e0dca7ca9341960ec12ad682c79, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2750440095995277175, guid: 8a977e0dca7ca9341960ec12ad682c79, type: 3}
       propertyPath: m_Name
       value: Shotgun Variant
@@ -2755,6 +2763,18 @@ PrefabInstance:
     - target: {fileID: 5820784956094996626, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
       propertyPath: m_Name
       value: ak-47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820784956094996626, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476760059437438071, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476760059437438071, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6596724242967607848, guid: 5606d36a32fb72248bac6a8ee7ffdd1e, type: 3}
       propertyPath: m_RootOrder

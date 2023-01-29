@@ -175,7 +175,21 @@ public class shooting : NetworkBehaviour
                 ctime += Time.deltaTime;
             }
         }
-        RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (currentGun != null)
+            {
+                currentGun.transform.position = transform.position + new Vector3(0, 2, 0);
+                currentGun.SetActive(true);
+                currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
+                currentGun = null;
+                foreach (GameObject gun in GunSkins)
+                {
+                    gun.SetActive(false);
+                }
+            }
+        }
+            RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward),out hit, 15, lm))
         {
             if(hit.collider.gameObject.CompareTag("Any gun")||
@@ -184,13 +198,28 @@ public class shooting : NetworkBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    if(currentGun != null)
+                    {
+                        currentGun.transform.position = transform.position + new Vector3(0, 2, 0);
+                        currentGun.SetActive(true);
+                        currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
+                        currentGun = null;
+                        foreach (GameObject gun in GunSkins)
+                        {
+                                gun.SetActive(false);
+                        }
+                    }
                     currentGun = hit.collider.gameObject;
                     currentGun.SetActive(false);
-                    foreach (GameObject gun in GunSkins) {
+                    foreach (GameObject gun in GunSkins) 
+                    {
                         int gunid = gun.GetComponent<gunID>().id;
                         if (currentGun.GetComponent<gunID>().id == gunid ) {
                             gun.SetActive(true);
-                            break;
+                        }
+                        else
+                        {
+                            gun.SetActive(false);
                         }
                     }
                     //absorb gun properties
