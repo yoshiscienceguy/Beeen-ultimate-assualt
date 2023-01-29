@@ -111,19 +111,20 @@ public class shooting : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButton(1))
+        {
+            Scope.SetActive(true);
+            Camera.main.fieldOfView = 5;
+        }
+        else
+        {
+            Scope.SetActive(false);
+            Camera.main.fieldOfView = 60;
+        }
         if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
         if (currentGun != null)
         {
-            if (Input.GetMouseButton(1))
-            {
-                Scope.SetActive(true);
-                Camera.main.fieldOfView = 5;
-            }
-            else
-            {
-                Scope.SetActive(false);
-                Camera.main.fieldOfView = 60;
-            }
+            
 
             if (ctime >= lrfreq)
             {
