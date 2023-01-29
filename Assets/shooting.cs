@@ -189,7 +189,7 @@ public class shooting : NetworkBehaviour
                 currentGun = null;
                 foreach (GameObject gun in GunSkins)
                 {
-                    gun.SetActive(false);
+                    gun.GetComponent<gunID>().gunDisappearServerRpc();
                 }
             }
         }
@@ -210,20 +210,21 @@ public class shooting : NetworkBehaviour
                         currentGun = null;
                         foreach (GameObject gun in GunSkins)
                         {
-                                gun.SetActive(false);
+                            gun.GetComponent<gunID>().gunDisappearServerRpc();
                         }
                     }
                     currentGun = hit.collider.gameObject;
-                    currentGun.SetActive(false);
+                    currentGun.GetComponent<gunID>().gunDisappearServerRpc();
                     foreach (GameObject gun in GunSkins) 
                     {
                         int gunid = gun.GetComponent<gunID>().id;
                         if (currentGun.GetComponent<gunID>().id == gunid ) {
-                            gun.SetActive(true);
+                            Debug.Log("hi");
+                            gun.GetComponent<gunID>().gunAppearServerRpc();
                         }
                         else
                         {
-                            gun.SetActive(false);
+                            gun.GetComponent<gunID>().gunDisappearServerRpc();
                         }
                     }
                     //absorb gun properties

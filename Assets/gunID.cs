@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class gunID : MonoBehaviour
+using Unity.Netcode;
+public class gunID : NetworkBehaviour
 {
     public int id = 0;
     // Start is called before the first frame update
@@ -16,4 +16,30 @@ public class gunID : MonoBehaviour
     {
         
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void gunAppearServerRpc() {
+        Debug.Log("hello again");
+        gameObject.SetActive(true);
+        gunAppearClientRpc();
+    }
+    [ClientRpc]
+    void gunAppearClientRpc()
+    {
+        gameObject.SetActive(true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void gunDisappearServerRpc() {
+
+        gameObject.SetActive(false);
+        gunDisappearClientRpc();
+    }
+
+    [ClientRpc]
+    void gunDisappearClientRpc() {
+        gameObject.SetActive(false);
+    }
+
+
 }
