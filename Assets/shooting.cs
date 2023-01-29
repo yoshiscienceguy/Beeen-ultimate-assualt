@@ -107,14 +107,17 @@ public class shooting : NetworkBehaviour
         }
     }
 
-
+    float zoom = 15;
+    float zoomSpeed = 200;
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(1))
         {
             Scope.SetActive(true);
-            Camera.main.fieldOfView = 5;
+            Camera.main.fieldOfView = zoom;
+            zoom -= Input.mouseScrollDelta.y*zoomSpeed*Time.deltaTime;
+            zoom = Mathf.Clamp(zoom, 1, 30);
         }
         else
         {
