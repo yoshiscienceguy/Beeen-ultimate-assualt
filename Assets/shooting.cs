@@ -57,7 +57,7 @@ public class shooting : NetworkBehaviour
     }
 
     public void reloaded()
-    { 
+    {
         reloading = false;
     }
 
@@ -84,19 +84,19 @@ public class shooting : NetworkBehaviour
             {
                 GameObject victem = hit.collider.gameObject;
 
-                    if (victem.GetComponent<Rigidbody>())
-                    {
-                        //StartCoroutine("hit");
-                        victem.GetComponent<Rigidbody>().AddForce(barrelTD * knockback, ForceMode.Impulse);
+                if (victem.GetComponent<Rigidbody>())
+                {
+                    //StartCoroutine("hit");
+                    victem.GetComponent<Rigidbody>().AddForce(barrelTD * knockback, ForceMode.Impulse);
 
-                        health healthScript = hit.collider.gameObject.GetComponent<health>();
-                        if (healthScript != null)
-                        {
-                            //healthScript.netHealth.Value -= 3;
-                            healthScript.takedamageServerRpc(dmg, whoShot);
-                        }
+                    health healthScript = hit.collider.gameObject.GetComponent<health>();
+                    if (healthScript != null)
+                    {
+                        //healthScript.netHealth.Value -= 3;
+                        healthScript.takedamageServerRpc(dmg, whoShot);
                     }
-              
+                }
+
             }
 
             GameObject decalClone = Instantiate(bulletDecal, hit.point, Quaternion.identity);
@@ -116,7 +116,7 @@ public class shooting : NetworkBehaviour
         {
             Scope.SetActive(true);
             Camera.main.fieldOfView = zoom;
-            zoom -= Input.mouseScrollDelta.y*zoomSpeed*Time.deltaTime;
+            zoom -= Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime;
             zoom = Mathf.Clamp(zoom, 1, 30);
         }
         else
@@ -127,7 +127,7 @@ public class shooting : NetworkBehaviour
         if (!GetComponentInParent<NetworkObject>().IsOwner) { return; }
         if (currentGun != null)
         {
-            
+
 
             if (ctime >= lrfreq)
             {
@@ -184,47 +184,48 @@ public class shooting : NetworkBehaviour
             if (currentGun != null)
             {
                 currentGun.transform.position = transform.position + new Vector3(0, 1, 0);
-                currentGun.SetActive(true);
+                currentGun.GetComponent<gunID>().gunAppearServerRpc();
                 currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
                 currentGun = null;
                 foreach (GameObject gun in GunSkins)
                 {
-                    gun.GetComponent<gunID>().gunDisappearServerRpc();
+                    gun.gameObject.SetActive(false);
                 }
             }
         }
-            RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward),out hit, 15, lm))
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit, 15, lm))
         {
-            if(hit.collider.gameObject.CompareTag("Any gun")||
-                hit.collider.gameObject.CompareTag("Good gun")||
+            if (hit.collider.gameObject.CompareTag("Any gun") ||
+                hit.collider.gameObject.CompareTag("Good gun") ||
                 hit.collider.gameObject.CompareTag("Meh gun"))
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if(currentGun != null)
+                    if (currentGun != null)
                     {
                         currentGun.transform.position = transform.position + new Vector3(0, 1, 0);
-                        currentGun.SetActive(true);
+                        currentGun.GetComponent<gunID>().gunAppearServerRpc();
                         currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
                         currentGun = null;
                         foreach (GameObject gun in GunSkins)
                         {
-                            gun.GetComponent<gunID>().gunDisappearServerRpc();
+                            gun.gameObject.SetActive(false);
                         }
                     }
                     currentGun = hit.collider.gameObject;
                     currentGun.GetComponent<gunID>().gunDisappearServerRpc();
-                    foreach (GameObject gun in GunSkins) 
+                    foreach (GameObject gun in GunSkins)
                     {
                         int gunid = gun.GetComponent<gunID>().id;
-                        if (currentGun.GetComponent<gunID>().id == gunid ) {
+                        if (currentGun.GetComponent<gunID>().id == gunid)
+                        {
                             Debug.Log("hi");
-                            gun.GetComponent<gunID>().gunAppearServerRpc();
+                            gun.gameObject.SetActive(true);
                         }
                         else
                         {
-                            gun.GetComponent<gunID>().gunDisappearServerRpc();
+                            gun.gameObject.SetActive(false);
                         }
                     }
                     //absorb gun properties
@@ -233,7 +234,7 @@ public class shooting : NetworkBehaviour
             }
         }
 
-        
+
     }
     IEnumerator lrMf()
     {

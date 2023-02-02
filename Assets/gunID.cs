@@ -25,7 +25,14 @@ public class gunID : NetworkBehaviour
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
             //GetComponent<BoxCollider>().isTrigger = false;
-            GetComponent<BoxCollider>().enabled = true;
+            try
+            {
+                GetComponent<BoxCollider>().enabled = true;
+            }
+            catch
+            {
+                GetComponent<SphereCollider>().enabled = true;
+            }
             transform.GetChild(0).gameObject.SetActive(true);
             tag = "Untagged";
 
@@ -37,7 +44,14 @@ public class gunID : NetworkBehaviour
     {
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<BoxCollider>().enabled = true;
+        try
+        {
+            GetComponent<BoxCollider>().enabled = true;
+        }
+        catch
+        {
+            GetComponent<SphereCollider>().enabled = true;
+        }
         transform.GetChild(0).gameObject.SetActive(true);
         tag = "Any gun";
     }
@@ -47,7 +61,14 @@ public class gunID : NetworkBehaviour
 
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<BoxCollider>().enabled = false;
+        try
+        {
+            GetComponent<BoxCollider>().enabled = false;
+        }
+        catch
+        {
+            GetComponent<SphereCollider>().enabled = false;
+        }
         transform.GetChild(0).gameObject.SetActive(false);
         tag = "Untagged";
         gunDisappearClientRpc();
@@ -57,7 +78,14 @@ public class gunID : NetworkBehaviour
     void gunDisappearClientRpc() {
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<BoxCollider>().enabled = false;
+        try
+        {
+            GetComponent<BoxCollider>().enabled = false;
+        }
+        catch
+        {
+            GetComponent<SphereCollider>().enabled = false;
+        }
         transform.GetChild(0).gameObject.SetActive(false);
         tag = "Untagged";
     }
