@@ -8,6 +8,7 @@ public class NetworkController : NetworkBehaviour
 {
     public Transform Spawn;
     public GameObject Camera;
+    public GameObject Canvas;
     private ulong myid;
     public TMP_Text playerName;
 
@@ -17,22 +18,23 @@ public class NetworkController : NetworkBehaviour
     {
         if (IsOwner) {
             Camera.gameObject.SetActive(true);
+            Canvas.gameObject.SetActive(true);
+            GameObject safetySpawn = GameObject.Find("spawn A");
+            if (safetySpawn == null)
+            {
+                Debug.Log("safetySpawn not found");
+                return;
+            }
+            Debug.Log("safetySpawn  found");
+            Spawn = safetySpawn.transform;
+            Debug.Log("spawning at " + Spawn.position);
+            Vector3 rPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)) + Spawn.position;
+            Debug.Log("offset at " + rPos);
+            transform.position = rPos;
 
         }
         name = PlayersLobbyInformation.Instance.GetMyName(GetComponent<NetworkObject>().OwnerClientId);
         playerName.text = name;
-
-        GameObject safetySpawn = GameObject.Find("spawn A");
-        if (safetySpawn == null)
-        {
-            return;
-        }
-        Spawn = safetySpawn.transform;
-        Vector3 rPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)) + Spawn.position;
-        transform.position = rPos;
-       
-        
-
     }
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,6 @@ public class NetworkController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(transform.position);
     }
 }

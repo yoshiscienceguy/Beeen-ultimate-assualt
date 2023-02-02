@@ -30,8 +30,8 @@ public class GameManager : NetworkBehaviour {
     [ServerRpc(RequireOwnership = false)]
     private void SpawnPlayerServerRpc(ulong playerId) {
         var spawn = Instantiate(_playerPrefab);
-        Vector3 newSpawn = new Vector3(spawnArea.position.x + Random.Range(-5,5), spawnArea.position.y, spawnArea.position.z + Random.Range(-5, 5));
-        spawn.gameObject.transform.position = newSpawn;
+        //Vector3 newSpawn = new Vector3(spawnArea.position.x + Random.Range(-5,5), spawnArea.position.y, spawnArea.position.z + Random.Range(-5, 5));
+        //spawn.gameObject.transform.position = newSpawn;
         spawn.NetworkObject.SpawnWithOwnership(playerId);
     }
 

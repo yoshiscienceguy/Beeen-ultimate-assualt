@@ -18,12 +18,15 @@ public class gunID : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void gunAppearServerRpc() {
+    public void gunAppearServerRpc(Vector3 newPosition, Vector3 newForceLocation, Vector3 incomingSpeed) {
         Debug.Log("hello again");
         if (IsServer)
         {
+            //transform.position = newPosition;
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().velocity = incomingSpeed;
+            GetComponent<Rigidbody>().AddForce(newForceLocation, ForceMode.Impulse);
             //GetComponent<BoxCollider>().isTrigger = false;
             try
             {
@@ -34,16 +37,18 @@ public class gunID : NetworkBehaviour
                 GetComponent<SphereCollider>().enabled = true;
             }
             transform.GetChild(0).gameObject.SetActive(true);
-            tag = "Untagged";
+            tag = "Any gun";
 
         }
-        gunAppearClientRpc();
+        gunAppearClientRpc(newPosition, newForceLocation);
     }
     [ClientRpc]
-    void gunAppearClientRpc()
+    void gunAppearClientRpc(Vector3 newPosition,Vector3 newForceLocation)
     {
+        transform.position = newPosition;
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().AddForce(newForceLocation, ForceMode.Impulse);
         try
         {
             GetComponent<BoxCollider>().enabled = true;

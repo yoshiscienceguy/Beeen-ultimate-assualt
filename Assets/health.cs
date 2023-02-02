@@ -39,29 +39,15 @@ public class health : NetworkBehaviour
     {
         
     }
-    public void TakeDamage(float damage,ulong whoShot) {
-        if (IsServer)
-        {
-            netHealth.Value -= damage;
-            Debug.Log(netHealth.Value);
-            currenthealth -= damage;
-
-            updateHealthClientRpc();
-        }
-        else {
-            takedamageServerRpc(damage,whoShot);
-        }
-        
-
-
-
-    }
+ 
 
 
     [ClientRpc]
     public void updateHealthClientRpc() {
+        Debug.Log("Updating Healthbar");
         if (IsOwner)
         {
+            Debug.Log("My Health is: " + netHealth.Value.ToString());
             healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
             healthbar.fillAmount = netHealth.Value / maxhealth;
             if (netHealth.Value <= 0)
@@ -71,12 +57,16 @@ public class health : NetworkBehaviour
             }
         }
     }
-    [ServerRpc (RequireOwnership =false)]
+    [ServerRpc(RequireOwnership =false) ]
     public void takedamageServerRpc(float damage,ulong whoShot)
     {
-        if (whoShot != GetComponent<NetworkObject>().OwnerClientId)
+        if (IsServer)
         {
-            TakeDamage(damage,whoShot);
+            Debug.Log("taking : " + damage.ToString());
+            netHealth.Value -= damage;
+            Debug.Log("health : " + netHealth.Value.ToString());
+           
         }
+        updateHealthClientRpc();
     }
 }

@@ -93,6 +93,7 @@ public class shooting : NetworkBehaviour
                     if (healthScript != null)
                     {
                         //healthScript.netHealth.Value -= 3;
+                        Debug.Log("hit : " + hit.collider.gameObject.name);
                         healthScript.takedamageServerRpc(dmg, whoShot);
                     }
                 }
@@ -183,9 +184,9 @@ public class shooting : NetworkBehaviour
         {
             if (currentGun != null)
             {
-                currentGun.transform.position = transform.position + new Vector3(0, 1, 0);
-                currentGun.GetComponent<gunID>().gunAppearServerRpc();
-                currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
+               
+                currentGun.GetComponent<gunID>().gunAppearServerRpc(transform.position + new Vector3(0, 1, 0), Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), transform.parent.GetComponent<Rigidbody>().velocity);
+                changeParentServerRpc(currentGun, currentGun, true);
                 currentGun = null;
                 foreach (GameObject gun in GunSkins)
                 {
@@ -204,9 +205,10 @@ public class shooting : NetworkBehaviour
                 {
                     if (currentGun != null)
                     {
-                        currentGun.transform.position = transform.position + new Vector3(0, 1, 0);
-                        currentGun.GetComponent<gunID>().gunAppearServerRpc();
-                        currentGun.GetComponent<Rigidbody>().AddForce(Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), ForceMode.Impulse);
+                        //currentGun.transform.SetParent(null);
+                        changeParentServerRpc(currentGun, currentGun,true);
+                        currentGun.GetComponent<gunID>().gunAppearServerRpc(transform.position + new Vector3(0, 1, 0), Camera.main.transform.TransformDirection(new Vector3(0, 0, 10)), transform.parent.GetComponent<Rigidbody>().velocity);
+
                         currentGun = null;
                         foreach (GameObject gun in GunSkins)
                         {
@@ -228,6 +230,9 @@ public class shooting : NetworkBehaviour
                             gun.gameObject.SetActive(false);
                         }
                     }
+                    //currentGun.transform.SetParent(transform.parent);
+                    changeParentServerRpc(currentGun, transform.parent.gameObject);
+               
                     //absorb gun properties
                     //enable gun
                 }
@@ -235,6 +240,27 @@ public class shooting : NetworkBehaviour
         }
 
 
+    }
+    [ServerRpc]
+    void changeParentServerRpc(NetworkObjectReference target, NetworkObjectReference newParent,bool ignoreParent = false)
+    {
+
+        NetworkObject targetObject = target;
+        NetworkObject newParentObject = newParent;
+
+        if (ignoreParent)
+        {
+            targetObject.transform.SetParent(null);
+        }
+        else {
+            targetObject.transform.SetParent(newParentObject.transform);
+            targetObject.transform.localPosition = Vector3.up;
+        }
+          
+       
+        
+            // deal damage or something to target object.
+      
     }
     IEnumerator lrMf()
     {
