@@ -20,25 +20,46 @@ public class gunID : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void gunAppearServerRpc() {
         Debug.Log("hello again");
-        gameObject.SetActive(true);
+        if (IsServer)
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = true;
+            //GetComponent<BoxCollider>().isTrigger = false;
+            GetComponent<BoxCollider>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
+            tag = "Untagged";
+
+        }
         gunAppearClientRpc();
     }
     [ClientRpc]
     void gunAppearClientRpc()
     {
-        gameObject.SetActive(true);
+        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<BoxCollider>().enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
+        tag = "Any gun";
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void gunDisappearServerRpc() {
 
-        gameObject.SetActive(false);
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<BoxCollider>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+        tag = "Untagged";
         gunDisappearClientRpc();
     }
 
     [ClientRpc]
     void gunDisappearClientRpc() {
-        gameObject.SetActive(false);
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<BoxCollider>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+        tag = "Untagged";
     }
 
 

@@ -51,9 +51,15 @@ public class PlayersLobbyInformation : NetworkBehaviour
         {
             playerNames[newID] = newName;
         }
-        foreach (Transform playerPanel in panels)
+        try
         {
-            playerPanel.GetComponent<LobbyPlayerPanel>().UpdateEveryone(playerNames);
+            foreach (Transform playerPanel in panels)
+            {
+                playerPanel.GetComponent<LobbyPlayerPanel>().UpdateEveryone(playerNames);
+            }
+        }
+        catch { 
+        
         }
 
     }
