@@ -30,7 +30,6 @@ public class shooting : NetworkBehaviour
     public GameObject bulletDecal;
     public GameObject Scope;
     public GameObject currentGun;
-
     public GameObject[] GunSkins;
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
