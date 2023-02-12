@@ -1765,6 +1765,8 @@ RectTransform:
   - {fileID: 1480833766}
   - {fileID: 5356071174969638724}
   - {fileID: 1990737939}
+  - {fileID: 1393932509562766605}
+  - {fileID: 8533791463907643729}
   m_Father: {fileID: 1880219391301234158}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.288}
@@ -2149,7 +2151,7 @@ MonoBehaviour:
   lrlight: {fileID: 6631265412392084648}
   lrcurrentmag: 0
   lrmaxmag: 30
-  ammo: {fileID: 0}
+  ammo: {fileID: 374827677}
   hitmarker: {fileID: 0}
   reloading: 0
   anim: {fileID: 6631265411725251191}
@@ -2409,13 +2411,13 @@ MonoBehaviour:
   jumpSpeed: 25
   gravity: 50
   rotspeed: 250
-  Sprintingspeed: 100
+  Sprintingspeed: 35
   walkingspeed: 15
   stamina: 100
   maxStamina: 100
-  staminaRate: 10
+  staminaRate: 7
   staminaCooldown: 2
-  staminaGain: 15
+  staminaGain: 10
   StaminaMeter: {fileID: 5763214094032545769}
 --- !u!114 &1880219391301234154
 MonoBehaviour:
@@ -2464,8 +2466,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4701223323072310525}
-  - {fileID: 1393932509562766605}
-  - {fileID: 8533791463907643729}
   m_Father: {fileID: 1785650243}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2709,18 +2709,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4830904462216148154}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5356071174969638724}
-  m_RootOrder: 1
+  m_Father: {fileID: 1785650243}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.011243, y: -0.012419}
-  m_SizeDelta: {x: 49.8777, y: 12.074}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 88.30002, y: 17.012177}
+  m_SizeDelta: {x: 49.877686, y: 12.074005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8959024081154390075
 CanvasRenderer:
@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 6260391046956389464}
   - component: {fileID: 8847166689924863594}
   m_Layer: 5
-  m_Name: Stamina text (1)
+  m_Name: Health text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2879,18 +2879,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6465715163331848834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5356071174969638724}
-  m_RootOrder: 2
+  m_Father: {fileID: 1785650243}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.011274, y: 20}
-  m_SizeDelta: {x: 49.8777, y: 12.074}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 88.02255, y: 37.024597}
+  m_SizeDelta: {x: 49.877686, y: 12.074005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6260391046956389464
 CanvasRenderer:
