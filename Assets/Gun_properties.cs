@@ -13,6 +13,7 @@ public class Gun_properties : MonoBehaviour
     public float maxDamage = 10;
     public float minimumDamage = 1;
     public bool raycasting;
+    public float range = 25;
     // Start is called before the first frame update
     void Start()
     {

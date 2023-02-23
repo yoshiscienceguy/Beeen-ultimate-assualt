@@ -31,6 +31,8 @@ public class shooting : NetworkBehaviour
     public GameObject Scope;
     public GameObject currentGun;
     public GameObject[] GunSkins;
+    private float mindamage = 10;
+    private float maxdamage = 50;
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
@@ -147,6 +149,7 @@ public class shooting : NetworkBehaviour
                         }
 
 
+                        weaponDamage = Random.Range(maxdamage, maxdamage);
 
                         //PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
                         PlayerShootGunServerRpc(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
@@ -243,7 +246,9 @@ public class shooting : NetworkBehaviour
 
     public void GetGunProperties(Gun_properties gp) {
         lrfreq = gp.ShootingFrequency;
-
+        lrrange = gp.range;
+        mindamage = gp.minimumDamage;
+        maxdamage = gp.maxDamage;
     }
 
     [ServerRpc]
