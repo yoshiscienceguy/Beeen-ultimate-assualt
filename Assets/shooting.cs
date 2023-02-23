@@ -231,7 +231,7 @@ public class shooting : NetworkBehaviour
                     }
                     //currentGun.transform.SetParent(transform.parent);
                     changeParentServerRpc(currentGun, transform.parent.gameObject);
-               
+                    GetGunProperties(currentGun.GetComponent<Gun_properties>());
                     //absorb gun properties
                     //enable gun
                 }
@@ -240,6 +240,12 @@ public class shooting : NetworkBehaviour
 
 
     }
+
+    public void GetGunProperties(Gun_properties gp) {
+        lrfreq = gp.ShootingFrequency;
+
+    }
+
     [ServerRpc]
     void changeParentServerRpc(NetworkObjectReference target, NetworkObjectReference newParent,bool ignoreParent = false)
     {
