@@ -152,7 +152,7 @@ public class shooting : NetworkBehaviour
                         weaponDamage = Random.Range(maxdamage, maxdamage);
 
                         //PlayerShootGunServerRpc(barrel.position, barrel.TransformDirection(Vector3.forward));
-                        PlayerShootGunServerRpc(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
+                        PlayerShootGunServerRpc(Camera.main.transform.position+ Camera.main.transform.TransformDirection(new Vector3(0,0,2)), Camera.main.transform.TransformDirection(Vector3.forward), knokback, weaponDamage, transform.parent.GetComponent<NetworkObject>().OwnerClientId);
 
                         //lorenzo fix this
                         //StartCoroutine("hit");
