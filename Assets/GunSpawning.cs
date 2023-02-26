@@ -28,27 +28,32 @@ public class GunSpawning : MonoBehaviour
                 }
             }
         
-            Transform gunLocation = transform.GetChild(RandomGunspot);
-            if(gunLocation.tag == "Meh gun")
+            
+        }
+        foreach (int placeID in Places) { 
+        
+            Transform gunLocation = transform.GetChild(placeID);
+            if (gunLocation.tag == "Meh gun")
             {
                 int rgun = Random.Range(0, mehGuns.Length);
-                GameObject clone = Instantiate(mehGuns[rgun], transform.position, Quaternion.identity);
+                GameObject clone = Instantiate(mehGuns[rgun], gunLocation.position, Quaternion.identity);
                 clone.GetComponent<NetworkObject>().Spawn();
             }
             if (gunLocation.tag == "Any gun")
             {
                 int rgun = Random.Range(0, anyGuns.Length);
-                GameObject clone = Instantiate(anyGuns[rgun], transform.position, Quaternion.identity);
+                GameObject clone = Instantiate(anyGuns[rgun], gunLocation.position, Quaternion.identity);
                 clone.GetComponent<NetworkObject>().Spawn();
             }
             if (gunLocation.tag == "Good gun")
             {
                 int rgun = Random.Range(0, goodGuns.Length);
-                GameObject clone = Instantiate(goodGuns[rgun], transform.position, Quaternion.identity);
+                GameObject clone = Instantiate(goodGuns[rgun], gunLocation.position, Quaternion.identity);
                 clone.GetComponent<NetworkObject>().Spawn();
             }
+
         }
-        
+
 
 
 
