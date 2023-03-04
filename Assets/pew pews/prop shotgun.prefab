@@ -64,10 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8533bfbf73f5484ba1e29290fd21d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootingFrequency: 0.5
-  bulletAmount: 1
-  maxDamage: 10
-  minimumDamage: 1
+  ShootingFrequency: 2
+  bulletAmount: 8
+  maxDamage: 70
+  minimumDamage: 59
   raycasting: 0
   range: 25
 --- !u!114 &5734035092534918441
