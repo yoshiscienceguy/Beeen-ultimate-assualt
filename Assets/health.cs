@@ -28,7 +28,7 @@ public class health : NetworkBehaviour
         
         if (IsOwner)
         {
-            healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
+            //healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
         }
        
     }
@@ -48,7 +48,7 @@ public class health : NetworkBehaviour
         if (IsOwner)
         {
             Debug.Log("My Health is: " + netHealth.Value.ToString());
-            healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
+           // healthbar = GameObject.Find("Foreground_Healthbar").GetComponent<Image>();
             healthbar.fillAmount = netHealth.Value / maxhealth;
             if (netHealth.Value <= 0)
             {
