@@ -54,6 +54,13 @@ public class health : NetworkBehaviour
             {
                 //oof
                 Debug.Log("You suck loser, smell my feet, you're dogwater, I could beat you in my sleep, I bet a baby is better than you, you suck Like a cow playing ultimate frisbee mixed with baseball");
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<turn_left_and_right>().enabled = false;
+                GetComponentInChildren<turn_up_and_down>().enabled = false;
+                GetComponent<CharacterController>().enabled = false;
+                GetComponent<ghosteree>().enabled = true;
             }
         }
     }
