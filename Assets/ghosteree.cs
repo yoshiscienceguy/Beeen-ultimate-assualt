@@ -20,7 +20,7 @@ public class ghosteree : MonoBehaviour
         movemente = Camera.main.transform.TransformDirection(movemente);
         transform.Translate(movemente);
 
-        Vector3 rot = new Vector3(0, -Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"))*mouseSensitivity*Time.deltaTime;
+        Vector3 rot = new Vector3(-Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0)*mouseSensitivity*Time.deltaTime;
         transform.Rotate(rot);
             
     }
