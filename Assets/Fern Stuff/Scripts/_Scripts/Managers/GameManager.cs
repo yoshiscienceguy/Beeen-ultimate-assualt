@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : NetworkBehaviour {
     private static GameManager instance;
@@ -7,6 +8,8 @@ public class GameManager : NetworkBehaviour {
 
     [SerializeField] private NetworkController _playerPrefab;
     public Transform spawnArea;
+    public int playerCount;
+    public TMP_Text playercounttext;
 
     private void Awake()
     {
@@ -20,6 +23,16 @@ public class GameManager : NetworkBehaviour {
         }
 
         spawnArea = GameObject.Find("spawn A").transform;
+
+        playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+        playercounttext.text = playerCount.ToString();
+
+    }
+
+    public void oof()
+    {
+        playerCount -= 1;
+        playercounttext.text = playerCount.ToString();
     }
 
     public override void OnNetworkSpawn() {

@@ -37,7 +37,10 @@ public class health : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            takedamageServerRpc(1000000, 99999);
+        }
     }
  
 
@@ -53,6 +56,7 @@ public class health : NetworkBehaviour
             if (netHealth.Value <= 0)
             {
                 //oof
+                GameObject.FindObjectOfType<GameManager>().oof();
                 Debug.Log("You suck loser, smell my feet, you're dogwater, I could beat you in my sleep, I bet a baby is better than you, you suck Like a cow playing ultimate frisbee mixed with baseball");
                 GetComponent<Rigidbody>().useGravity = false;
                 GetComponent<CapsuleCollider>().enabled = false;
