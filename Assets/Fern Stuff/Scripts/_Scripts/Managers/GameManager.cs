@@ -8,11 +8,12 @@ public class GameManager : NetworkBehaviour {
 
     [SerializeField] private NetworkController _playerPrefab;
     public Transform spawnArea;
-    public int playerCount;
+    public NetworkVariable<int> playerCount;
     public TMP_Text playercounttext;
 
     private void Awake()
     {
+        playercounttext = GameObject.Find("Remaining players").GetComponent<TMP_Text>();
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -23,20 +24,40 @@ public class GameManager : NetworkBehaviour {
         }
 
         spawnArea = GameObject.Find("spawn A").transform;
+        playerCount = new NetworkVariable<int>();
 
-        playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
-        playercounttext.text = playerCount.ToString();
+    }
+    [ClientRpc]
+    public void updatePlayerCountClientRpc(int value)
+    {
+        playercounttext = GameObject.Find("Remaining players").GetComponent<TMP_Text>();
+        playerCount.Value = value;
+        playercounttext.text = playerCount.Value.ToString();
 
     }
 
+    [ServerRpc (RequireOwnership =false)]
+    public void addPlayerServerRpc()
+    {
+        playercounttext = GameObject.Find("Remaining players").GetComponent<TMP_Text>();
+        playerCount.Value += 1;
+        updatePlayerCountClientRpc(playerCount.Value);
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void oofPlayerServerRpc()
+    {
+        playerCount.Value -= 1;
+    }
     public void oof()
     {
-        playerCount -= 1;
-        playercounttext.text = playerCount.ToString();
+        playercounttext = GameObject.Find("Remaining players").GetComponent<TMP_Text>();
+        oofPlayerServerRpc();
+        playercounttext.text = playerCount.Value.ToString();
     }
 
     public override void OnNetworkSpawn() {
         SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
+        addPlayerServerRpc();
 
     }   
 
