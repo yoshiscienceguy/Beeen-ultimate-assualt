@@ -39,7 +39,7 @@ public class turn_left_and_right : NetworkBehaviour
         // let the gameObject fall down
         //gameObject.transform.position = new Vector3(0, 5, 0);
     }
-
+    //does the stamina thing
     void Update()
     {
 
@@ -65,6 +65,8 @@ public class turn_left_and_right : NetworkBehaviour
             }
 
         }
+
+        //more stamina things
         if (stamina < maxStamina)
         {
             if (!Input.GetKey(KeyCode.LeftShift))
@@ -96,7 +98,7 @@ public class turn_left_and_right : NetworkBehaviour
             moveDirection.y = jumpSpeed;
         }
 
-
+        //moving
         if (controller.isGrounded)
         {
             //We are grounded, so recalculate

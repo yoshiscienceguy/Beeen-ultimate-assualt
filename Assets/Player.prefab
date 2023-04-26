@@ -2264,7 +2264,7 @@ MonoBehaviour:
   speed: 20
   jumpSpeed: 8
   gravity: 20
-  rotspeed: 250
+  rotspeed: 100
 --- !u!114 &1880219391032943909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   speed: 75
   jumpSpeed: 25
   gravity: 50
-  rotspeed: 250
+  rotspeed: 100
   Sprintingspeed: 35
   walkingspeed: 15
   stamina: 100
